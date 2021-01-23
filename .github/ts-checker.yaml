@@ -1,5 +1,5 @@
 on: push
-name: Lint
+name: TS Checker
 jobs:
   checker:
     name: TS checker
@@ -8,6 +8,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
 
-      - name: Eslint CFs
+      - name: TS checker start
         working-directory: ./ts-compile-check
         run: yarn start
