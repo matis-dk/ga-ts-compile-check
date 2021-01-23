@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonjs",
+    "outDir": "dist",
+    "lib": ["es2017"],
+    "esModuleInterop": true,
+    "paths": {
+      "*": ["node_modules/*"],
+      "@os3": ["../types/os3"],
+      "@os3-enums": ["../types/enums"],
+      "@os3-templates": ["../types/slidetemplates"],
+      "@firestore": ["../types/firestore"]
+    }
+  },
+  "include": ["src/**/*"]
+}
