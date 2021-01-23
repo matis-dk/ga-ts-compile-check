@@ -38,7 +38,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
       cwd: projectPaths[0],
     });
 
-    console.log(res);
+    console.log(res.stdout.toString());
     return;
 
     projectPaths.forEach((path) => {
