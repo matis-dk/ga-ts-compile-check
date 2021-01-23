@@ -1,10 +1,6 @@
 import * as glob from "glob";
 
-const util = require("util");
-const e = require("child_process").exec;
-const exec = util.promisify(e);
 const childProcess = require("child_process");
-console.log(childProcess);
 
 async function start() {
   const projects = await getProjects();
@@ -38,6 +34,13 @@ async function runTypescriptCheck(projectPaths: string[]) {
     const compileErrors = [];
     let currentPath = "";
 
+    const res = childProcess.spawnSync("ls", {
+      cwd: projectPaths[0],
+    });
+
+    console.log(res);
+    return;
+
     projectPaths.forEach((path) => {
       console.log("------------");
       console.log(`Compile checking '${path}'`);
@@ -54,8 +57,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
         compileErrors.push({
           path,
-          stderr: res.stderr?.toString(),
-          stdout: res.stdout?.toString(),
+          response: res,
         });
       }
     });
