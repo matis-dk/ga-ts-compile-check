@@ -1,6 +1,6 @@
 import * as glob from "glob";
 
-const childProcess = require("child_process");
+const spawnSync = require("child_process").spawnSync;
 
 async function start() {
   const projects = await getProjects();
@@ -33,10 +33,6 @@ async function runTypescriptCheck(projectPaths: string[]) {
   try {
     const compileErrors = [];
 
-    const res = childProcess.spawnSync("ls", {
-      cwd: projectPaths[0],
-    });
-
     projectPaths.forEach((path) => {
       console.log("------------");
       console.log(`Compile checking '${path}'`);
@@ -45,28 +41,37 @@ async function runTypescriptCheck(projectPaths: string[]) {
         cwd: path,
       };
 
-      childProcess.spawnSync("yarn", ["install"], spawnSyncOptions);
+      spawnSync("yarn", ["install"], spawnSyncOptions);
 
-      const res = childProcess.spawnSync(
+      const res = spawnSync(
         "node_modules/.bin/tsc",
         ["--noEmit"],
         spawnSyncOptions
       );
 
-      if (res.status !== 0) {
-        console.log(res);
-
+      const { status, stdout, stderr, output } = res;
+      if (status !== 0) {
         compileErrors.push({
           path,
-          response: res,
+          response: {
+            status,
+            stdout: stdout?.toString(),
+            stderr: stderr?.toString(),
+            output: output && output.map((o) => o?.toString()),
+          },
         });
       }
     });
 
-    console.log("------------");
-    console.log("compileErrors ", compileErrors);
+    if (compileErrors.length) {
+      console.log("------------");
+      console.error("ERROR: Failed to compile one or more typescript projects");
+      console.log(compileErrors);
+      process.exit();
+    }
   } catch (err) {
-    console.log("Failed to run childProcess!");
+    console.log("------------");
+    console.log("ERROR: Failed to run childProcess");
     throw new Error(err);
   }
 }
