@@ -1,11 +1,6 @@
 {
-  "name": "cf_fetch_historical",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "build/cf_fetch_historical.js",
-  "engines": {
-    "node": "12"
-  },
   "dependencies": {
     "@types/express": "^4.17.7",
     "@types/node": "^14.0.23",
