@@ -1,0 +1,13 @@
+on: pull_request
+name: Lint
+jobs:
+  checker:
+    name: TS checker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      - name: Eslint CFs
+        working-directory: ./ts-compile-check
+        run: yarn start
