@@ -61,6 +61,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
     console.log("compileErrors ", compileErrors);
   } catch (err) {
     console.log("Failed to run childProcess!");
+    console.log(err);
   }
 }
 
