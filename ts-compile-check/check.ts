@@ -4,6 +4,7 @@ const util = require("util");
 const e = require("child_process").exec;
 const exec = util.promisify(e);
 const childProcess = require("child_process");
+console.log(childProcess);
 
 async function start() {
   const projects = await getProjects();
@@ -61,7 +62,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
     console.log("compileErrors ", compileErrors);
   } catch (err) {
     console.log("Failed to run childProcess!");
-    console.log(err);
+    throw new Error(err);
   }
 }
 
