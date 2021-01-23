@@ -32,26 +32,26 @@ function getProjects(): Promise<string[]> {
 async function runTypescriptCheck(projectPaths: string[]) {
   try {
     const compileErrors = [];
-    let currentPath = "";
 
     const res = childProcess.spawnSync("ls", {
       cwd: projectPaths[0],
     });
 
-    console.log(res.stdout.toString());
-    return;
-
     projectPaths.forEach((path) => {
       console.log("------------");
       console.log(`Compile checking '${path}'`);
-      currentPath = path;
+
+      const spawnSyncOptions = {
+        cwd: path,
+      };
+
+      childProcess.spawnSync("yarn", spawnSyncOptions);
       const res = childProcess.spawnSync(
         "node_modules/.bin/tsc",
         ["--noEmit"],
-        {
-          cwd: path,
-        }
+        spawnSyncOptions
       );
+
       if (res.status !== 0) {
         console.log(res);
 
