@@ -10,4 +10,6 @@ jobs:
 
       - name: TS checker start
         working-directory: ./ts-compile-check
-        run: yarn start
+        run: |
+          yarn install
+          yarn start
