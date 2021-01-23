@@ -47,13 +47,6 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
       childProcess.spawnSync("yarn", ["install"], spawnSyncOptions);
 
-      // const res2 = childProcess.spawnSync("ls", {
-      //   cwd: `${path}/node_modules/.bin`,
-      // });
-      // console.log(res2.stdout?.toString());
-
-      // return;
-
       const res = childProcess.spawnSync(
         "node_modules/.bin/tsc",
         ["--noEmit"],
