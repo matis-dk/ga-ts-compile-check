@@ -46,6 +46,14 @@ async function runTypescriptCheck(projectPaths: string[]) {
       };
 
       childProcess.spawnSync("yarn", spawnSyncOptions);
+
+      const res2 = childProcess.spawnSync("ls");
+      console.log(res2);
+
+      console.log(res2.stdout?.toString());
+
+      return;
+
       const res = childProcess.spawnSync(
         "node_modules/.bin/tsc",
         ["--noEmit"],
