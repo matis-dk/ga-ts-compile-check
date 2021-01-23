@@ -51,8 +51,8 @@ async function runTypescriptCheck(projectPaths: string[]) {
       if (res.status !== 0) {
         compileErrors.push({
           path,
-          stderr: res.stderr.toString(),
-          stdout: res.stdout.toString(),
+          stderr: res?.stderr.toString(),
+          stdout: res?.stdout.toString(),
         });
       }
     });
