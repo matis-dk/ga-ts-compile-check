@@ -66,8 +66,9 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
     if (compileErrors.length) {
       console.log("------------");
-      console.error("ERROR: Failed to compile one or more typescript projects");
-      core.setFailed("ASDASDASDASDA");
+      core.setFailed(
+        "ERROR: Failed to compile one or more typescript projects"
+      );
       console.log(compileErrors);
       process.exit();
     }

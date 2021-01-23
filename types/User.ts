@@ -4,8 +4,8 @@ export type User = {
   age: number;
   country: string;
   friendIds: string[];
-  // settings: {
-  //   notifications: boolean;
-  //   reminders: boolean;
-  // };
+  settings: {
+    notifications: boolean;
+    reminders: boolean;
+  };
 };
