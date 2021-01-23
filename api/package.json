@@ -21,6 +21,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "watch": "ts-node-dev src/server.ts --debug",
-    "deploy": "rm -rf ./dist && yarn install && yarn run build && sh ./deploy.sh"
+    "deploy": "rm -rf ./dist && yarn install && yarn run build && sh ./deploy.sh",
+    "test": "tsc --noEmit"
   }
 }

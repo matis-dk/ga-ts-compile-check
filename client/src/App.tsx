@@ -11,8 +11,8 @@ const users: User[] = [
     country: "denmark",
     friendIds: ["1", "2", "3", "4"],
     settings: {
-      notifications: false,
-      reminders: false,
+      notifications: true,
+      reminders: true,
     },
   },
   {
@@ -22,8 +22,8 @@ const users: User[] = [
     country: "denmark",
     friendIds: ["6", "7", "8", "9"],
     settings: {
-      notifications: false,
-      reminders: false,
+      notifications: true,
+      reminders: true,
     },
   },
 ];

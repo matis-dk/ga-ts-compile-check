@@ -16,7 +16,7 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "watch": "ts-node-dev src/cf_user_signup.ts",
+    "start": "ts-node-dev src/cf_user_signup.ts",
     "build": "rm -rf ./build && tsc",
     "deploy": "yarn run build && ./deploy.sh"
   }
