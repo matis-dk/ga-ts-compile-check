@@ -17,12 +17,14 @@ type CompileError = {
 };
 
 (async function start() {
+  log("Started TS compile checker");
   const projects = await getProjects();
   const compileErrors = runTypescriptCheck(projects);
   logErrors(compileErrors);
 })();
 
 function getProjects(): Promise<string[]> {
+  log("🔍 Searching for projects with a tsconfig.json file");
   return new Promise((res, _) => {
     glob("../**/tsconfig.json", {}, function (err, files) {
       if (err) {
@@ -35,7 +37,7 @@ function getProjects(): Promise<string[]> {
         )
         .map((path) => path.replace("/tsconfig.json", ""));
 
-      log("Projects found with a tsconfig.json file");
+      log("📝 Projects found with a tsconfig.json file");
       console.table(projects);
 
       res(projects);
@@ -92,9 +94,7 @@ function logErrors(compileErrors: CompileError[]) {
     compileErrors.forEach((c) => {
       logLine();
       if (c.stdout) {
-        log(
-          chalk.redBright.bold(`[Project '${c.projectPath}' failed to compile]`)
-        );
+        log(chalk.red.bold(`[Project '${c.projectPath}' failed to compile]`));
         core.setFailed(c.stdout);
       }
       if (c.stderr) {
