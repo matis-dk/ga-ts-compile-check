@@ -35,7 +35,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
     const compileErrors = [];
 
     projectPaths.forEach((path) => {
-      console.log("------------");
+      console.log("------------------------");
       console.log(`Compile checking '${path}'`);
 
       const spawnSyncOptions = {
@@ -64,7 +64,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
     });
 
     if (compileErrors.length) {
-      console.log("------------");
+      console.log("------------------------");
       core.setFailed(
         `ERROR: Failed to compile ${compileErrors.length} project${
           compileErrors.length > 1 ? `s` : ""
@@ -84,8 +84,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
       process.exit();
     }
   } catch (err) {
-    console.log("------------");
-    console.log("ERROR: Failed to run childProcess");
+    core.setFailed("ERROR: Failed to run childProcess");
     throw new Error(err);
   }
 }
