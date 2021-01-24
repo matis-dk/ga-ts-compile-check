@@ -48,10 +48,9 @@ function getProjects(): Promise<string[]> {
 function runTypescriptCheck(projectPaths: string[]) {
   try {
     const compileErrors: CompileError[] = [];
-    log(`🛠️ Checking for typescript compilation errors`);
+    core.info("🛠️  Checking for typescript compilation errors");
 
     projectPaths.forEach((projectPath) => {
-      logLine();
       log(`Project '${projectPath}'`);
 
       const options = {
@@ -83,7 +82,7 @@ function logErrors(compileErrors: CompileError[]) {
   if (compileErrors.length) {
     logLine();
     core.setFailed(
-      `ERROR: Failed to compile ${compileErrors.length} project${
+      `❌ ERROR: Failed to compile ${compileErrors.length} project${
         compileErrors.length > 1 ? `s` : ""
       }`
     );
@@ -99,5 +98,7 @@ function logErrors(compileErrors: CompileError[]) {
       }
     });
     process.exit();
+  } else {
+    log(`✔️ Successfully compile all projects`);
   }
 }
