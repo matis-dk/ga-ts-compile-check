@@ -52,6 +52,8 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
       const { status, stdout, stderr, output } = res;
       if (status !== 0) {
+        core.setFailed(stderr?.toString());
+
         compileErrors.push({
           path,
           response: {
