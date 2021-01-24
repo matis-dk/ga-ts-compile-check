@@ -73,11 +73,13 @@ async function runTypescriptCheck(projectPaths: string[]) {
       console.log("------------");
       compileErrors.forEach((c) => {
         console.log("------------------------");
-        core.setFailed(c.response.stdout);
-        console.log("---");
-        core.setFailed(c.response.stderr);
-        console.log("---");
-        core.setFailed(c.response.output[0]);
+        if (c.response.stdout) {
+          core.setFailed(c.response.stdout);
+          console.log("---");
+        }
+        if (c.response.stderr) {
+          core.setFailed(c.response.stderr);
+        }
         console.log("------------------------");
       });
       process.exit();
