@@ -23,7 +23,7 @@ function getProjects(): Promise<string[]> {
 
       console.log("------------");
       console.log("Projects found with a tsconfig.json file");
-      console.log(projects);
+      console.table(projects);
 
       res(projects);
     });
@@ -46,7 +46,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
       const res = spawnSync(
         "node_modules/.bin/tsc",
-        ["--noEmit"],
+        ["--noEmit", "--pretty"],
         spawnSyncOptions
       );
 
@@ -69,7 +69,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
       core.setFailed(
         "ERROR: Failed to compile one or more typescript projects"
       );
-      console.log(compileErrors);
+      // console.log(compileErrors);
       compileErrors.forEach((c) => {
         console.log("------------------------");
         if (c.response.stdout) {
