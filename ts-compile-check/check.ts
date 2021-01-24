@@ -73,17 +73,9 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
       compileErrors.forEach((c) => {
         console.log("------------------------");
-        // name: string;
-        // message: string;
-        // stack?: string;
-
         if (c.response.stdout) {
           console.log(`Project '${c.path}' failed to compile`);
-          core.setFailed({
-            name: "THIS IS NAME",
-            message: "THIS IS MESSAGE",
-            stack: c.response.stdout,
-          });
+          core.setFailed(c.response.stdout);
         }
         if (c.response.stderr) {
           core.setFailed(c.response.stderr);
