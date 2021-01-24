@@ -58,7 +58,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
             status,
             stdout: stdout?.toString(),
             stderr: stderr?.toString(),
-            output: output && output.map((o) => o?.toString()),
+            output: output && output.filter((o) => o).map((o) => o?.toString()),
           },
         });
       }
@@ -66,14 +66,20 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
     if (compileErrors.length) {
       console.log("------------");
-      core.setFailed(compileErrors[0].response.stdout);
-      core.setFailed(compileErrors[0].response.output[1]);
-      core.setFailed(compileErrors[0].response.stdout);
-
       core.setFailed(
         "ERROR: Failed to compile one or more typescript projects"
       );
       console.log(compileErrors);
+      console.log("------------");
+      compileErrors.forEach((c) => {
+        console.log("------------------------");
+        core.setFailed(c.response.stdout);
+        console.log("---");
+        core.setFailed(c.response.stderr);
+        console.log("---");
+        core.setFailed(c.response.output[0]);
+        console.log("------------------------");
+      });
       process.exit();
     }
   } catch (err) {
