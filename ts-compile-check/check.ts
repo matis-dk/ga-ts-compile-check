@@ -2,8 +2,13 @@ import * as glob from "glob";
 import * as core from "@actions/core";
 
 import * as child from "child_process";
+import * as chalk from "chalk";
 
 const { spawnSync } = child;
+const log = console.log;
+const logLine = () => {
+  console.log("------------------------");
+};
 
 type CompileError = {
   projectPath: string;
@@ -30,8 +35,7 @@ function getProjects(): Promise<string[]> {
         )
         .map((path) => path.replace("/tsconfig.json", ""));
 
-      console.log("------------");
-      console.log("Projects found with a tsconfig.json file");
+      log("Projects found with a tsconfig.json file");
       console.table(projects);
 
       res(projects);
@@ -44,8 +48,8 @@ function runTypescriptCheck(projectPaths: string[]) {
     const compileErrors: CompileError[] = [];
 
     projectPaths.forEach((projectPath) => {
-      console.log("------------------------");
-      console.log(`Compile checking '${projectPath}'`);
+      logLine();
+      log(`Compile checking '${projectPath}'`);
 
       const spawnSyncOptions = {
         cwd: projectPath,
@@ -78,7 +82,7 @@ function runTypescriptCheck(projectPaths: string[]) {
 
 function logErrors(compileErrors: CompileError[]) {
   if (compileErrors.length) {
-    console.log("------------------------");
+    logLine();
     core.setFailed(
       `ERROR: Failed to compile ${compileErrors.length} project${
         compileErrors.length > 1 ? `s` : ""
@@ -86,9 +90,11 @@ function logErrors(compileErrors: CompileError[]) {
     );
 
     compileErrors.forEach((c) => {
-      console.log("------------------------");
+      logLine();
       if (c.stdout) {
-        core.info(`\u001b[Project '${c.projectPath}' failed to compile]`);
+        log(
+          chalk.redBright.bold(`[Project '${c.projectPath}' failed to compile]`)
+        );
         core.setFailed(c.stdout);
       }
       if (c.stderr) {
