@@ -52,8 +52,6 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
       const { status, stdout, stderr, output } = res;
       if (status !== 0) {
-        core.setFailed(stderr?.toString());
-
         compileErrors.push({
           path,
           response: {
@@ -68,6 +66,10 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
     if (compileErrors.length) {
       console.log("------------");
+      core.setFailed(compileErrors[0].response.stdout);
+      core.setFailed(compileErrors[0].response.output[1]);
+      core.setFailed(compileErrors[0].response.stdout);
+
       core.setFailed(
         "ERROR: Failed to compile one or more typescript projects"
       );
