@@ -46,7 +46,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
       const res = spawnSync(
         "node_modules/.bin/tsc",
-        ["--noEmit", "--pretty"],
+        ["--noEmit"],
         spawnSyncOptions
       );
 
@@ -70,7 +70,6 @@ async function runTypescriptCheck(projectPaths: string[]) {
         "ERROR: Failed to compile one or more typescript projects"
       );
       console.log(compileErrors);
-      console.log("------------");
       compileErrors.forEach((c) => {
         console.log("------------------------");
         if (c.response.stdout) {
@@ -80,7 +79,6 @@ async function runTypescriptCheck(projectPaths: string[]) {
         if (c.response.stderr) {
           core.setFailed(c.response.stderr);
         }
-        console.log("------------------------");
       });
       process.exit();
     }
