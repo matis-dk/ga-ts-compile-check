@@ -1,7 +1,7 @@
 import * as glob from "glob";
+import * as core from "@actions/core";
 
 const spawnSync = require("child_process").spawnSync;
-const core = require("@actions/core");
 
 async function start() {
   const projects = await getProjects();
@@ -67,7 +67,9 @@ async function runTypescriptCheck(projectPaths: string[]) {
     if (compileErrors.length) {
       console.log("------------");
       core.setFailed(
-        "ERROR: Failed to compile one or more typescript projects"
+        `ERROR: Failed to compile ${compileErrors.length} project${
+          compileErrors.length > 1 ? `s` : ""
+        }`
       );
       // console.log(compileErrors);
       compileErrors.forEach((c) => {
