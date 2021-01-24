@@ -37,7 +37,7 @@ function getProjects(): Promise<string[]> {
         )
         .map((path) => path.replace("/tsconfig.json", ""));
 
-      log("📝 Projects found with a tsconfig.json file");
+      log("📝 Projects found");
       console.table(projects);
 
       res(projects);
@@ -48,29 +48,26 @@ function getProjects(): Promise<string[]> {
 function runTypescriptCheck(projectPaths: string[]) {
   try {
     const compileErrors: CompileError[] = [];
+    log(`🛠️ Checking for typescript compilation errors`);
 
     projectPaths.forEach((projectPath) => {
       logLine();
-      log(`Compile checking '${projectPath}'`);
+      log(`Project '${projectPath}'`);
 
-      const spawnSyncOptions = {
+      const options = {
         cwd: projectPath,
       };
 
-      spawnSync("yarn", ["install"], spawnSyncOptions);
+      spawnSync("yarn", ["install"], options);
+      const tscArgs = ["--noEmit", "--pretty"];
 
-      const res = spawnSync(
-        "node_modules/.bin/tsc",
-        ["--noEmit", "--pretty"],
-        spawnSyncOptions
-      );
+      const output = spawnSync("node_modules/.bin/tsc", tscArgs, options);
 
-      const { status, stdout, stderr } = res;
-      if (status !== 0) {
+      if (output.status !== 0) {
         compileErrors.push({
           projectPath,
-          stdout: stdout?.toString(),
-          stderr: stderr?.toString(),
+          stdout: output.stdout?.toString(),
+          stderr: output.stderr?.toString(),
         });
       }
     });
