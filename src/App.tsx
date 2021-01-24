@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { User } from "../../types/User";
+import { User } from "../types/User";
 
 const users: User[] = [
   {

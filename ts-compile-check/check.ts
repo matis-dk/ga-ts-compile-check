@@ -10,7 +10,7 @@ async function start() {
 
 function getProjects(): Promise<string[]> {
   return new Promise((res, rej) => {
-    glob("../**/*/tsconfig.json", {}, function (err, files) {
+    glob("../**/tsconfig.json", {}, function (err, files) {
       if (err) {
         throw new Error("Failed search for tsconfig.json files");
       }
@@ -46,7 +46,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
 
       const res = spawnSync(
         "node_modules/.bin/tsc",
-        ["--noEmit"],
+        ["--noEmit", "--pretty"],
         spawnSyncOptions
       );
 
