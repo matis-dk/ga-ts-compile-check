@@ -70,24 +70,17 @@ async function runTypescriptCheck(projectPaths: string[]) {
           compileErrors.length > 1 ? `s` : ""
         }`
       );
-      // console.log(compileErrors);
 
-      const x = compileErrors.reduce((acc, i) => {
-        acc[i.path] = i.response.stdout;
-      }, {});
-
-      console.table(x);
-
-      // compileErrors.forEach((c) => {
-      //   console.log("------------------------");
-      //   if (c.response.stdout) {
-      //     core.setFailed(c.response.stdout);
-      //     console.log("---");
-      //   }
-      //   if (c.response.stderr) {
-      //     core.setFailed(c.response.stderr);
-      //   }
-      // });
+      compileErrors.forEach((c) => {
+        console.log("------------------------");
+        if (c.response.stdout) {
+          core.setFailed(`Project '${c.path}' failed to compile`);
+          core.setFailed(c.response.stdout);
+        }
+        if (c.response.stderr) {
+          core.setFailed(c.response.stderr);
+        }
+      });
       process.exit();
     }
   } catch (err) {
