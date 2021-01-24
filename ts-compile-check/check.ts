@@ -50,7 +50,7 @@ async function runTypescriptCheck(projectPaths: string[]) {
         spawnSyncOptions
       );
 
-      const { status, stdout, stderr, output } = res;
+      const { status, stdout, stderr } = res;
       if (status !== 0) {
         compileErrors.push({
           path,
@@ -58,7 +58,6 @@ async function runTypescriptCheck(projectPaths: string[]) {
             status,
             stdout: stdout?.toString(),
             stderr: stderr?.toString(),
-            output: output && output.filter((o) => o).map((o) => o?.toString()),
           },
         });
       }
@@ -72,16 +71,23 @@ async function runTypescriptCheck(projectPaths: string[]) {
         }`
       );
       // console.log(compileErrors);
-      compileErrors.forEach((c) => {
-        console.log("------------------------");
-        if (c.response.stdout) {
-          core.setFailed(c.response.stdout);
-          console.log("---");
-        }
-        if (c.response.stderr) {
-          core.setFailed(c.response.stderr);
-        }
-      });
+
+      const x = compileErrors.reduce((acc, i) => {
+        acc[i.path] = i.response.stdout;
+      }, {});
+
+      console.table(x);
+
+      // compileErrors.forEach((c) => {
+      //   console.log("------------------------");
+      //   if (c.response.stdout) {
+      //     core.setFailed(c.response.stdout);
+      //     console.log("---");
+      //   }
+      //   if (c.response.stderr) {
+      //     core.setFailed(c.response.stderr);
+      //   }
+      // });
       process.exit();
     }
   } catch (err) {
