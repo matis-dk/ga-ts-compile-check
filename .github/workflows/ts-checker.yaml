@@ -1,5 +1,5 @@
 on: push
-name: TS checker
+name: TS compilation checker
 jobs:
   checker:
     runs-on: ubuntu-latest
