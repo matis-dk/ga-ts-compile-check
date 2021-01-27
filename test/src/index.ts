@@ -51,8 +51,9 @@ async function getProjects(): Promise<string[]> {
   const tSearchStart = process.hrtime.bigint();
 
   try {
-    const files = await fg(`${cliArguments.cwd}/**/tsconfig.json`, {
+    const files = await fg(`**/tsconfig.json`, {
       ignore: ["**/node_modules/**", "**/build/**", "**/dist/**"],
+      cwd: cliArguments.cwd,
     });
     const tSearchEnd = process.hrtime.bigint();
 
