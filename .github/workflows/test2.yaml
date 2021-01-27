@@ -11,8 +11,9 @@ jobs:
           node-version: "14"
       - run: yarn install
         working-directory: test2
-      - run: yarn start
+      - run: yarn build
         working-directory: test2
+      - run: node test2/dist/index.js
 
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
