@@ -20,21 +20,13 @@ console.log("\nTHIS IS 1");
 console.log("THIS IS 2");
 console.log(chalk.bold("THIS IS 3"));
 
-export function log(msg: string, options?: LogOptions) {
+export function log(msg: string, options: LogOptions = { level: "INFO" }) {
   if (isCI) {
-    if (options?.level === "ERROR") {
-      core.setFailed(msg);
-    }
+    if (options?.level === "ERROR") core.setFailed(msg);
 
-    if (options?.level === "WARN") {
-      core.warning(msg);
-    }
+    if (options?.level === "WARN") core.warning(msg);
 
-    if (options?.level === "INFO") {
-      console.log(msg);
-    }
-    core.info(msg);
-    console.log(msg);
+    if (options?.level === "INFO") core.info(msg);
   } else {
     console.log(msg);
   }

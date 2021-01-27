@@ -11,5 +11,5 @@ jobs:
           node-version: "14"
       - run: yarn install
         working-directory: test
-      - run: yarn start
+      - run: yarn start --cwd ".."
         working-directory: test
