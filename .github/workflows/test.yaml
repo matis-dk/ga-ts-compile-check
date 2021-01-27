@@ -9,4 +9,6 @@ jobs:
       - uses: actions/setup-node@v2.1.4
         with:
           node-version: "14"
+      - run: npx ts-compile-checker -v
+      - run: npx ts-compile-checker --help
       - run: npx ts-compile-checker
