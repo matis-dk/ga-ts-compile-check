@@ -9,5 +9,5 @@ jobs:
       - uses: actions/setup-node@v2
 
       - name: TS checker start
-        working-directory: ./ts-compile-check
+        working-directory: ./
         run: npx ts-compile-checker
