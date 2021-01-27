@@ -9,7 +9,4 @@ jobs:
       - uses: actions/setup-node@v2.1.4
         with:
           node-version: "14"
-      - run: yarn install
-        working-directory: test
-      - run: yarn start --cwd ".."
-        working-directory: test
+      - run: npx ts-compile-checker

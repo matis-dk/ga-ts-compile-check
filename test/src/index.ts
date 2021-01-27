@@ -6,6 +6,7 @@ import chalk from "chalk";
 import { cliArguments, cliUsage } from "./cli";
 import { log, logDiffStartEnd } from "./logging";
 import { validatingFile } from "./util";
+import path from "path";
 
 const version = require("../package.json").version;
 
@@ -58,9 +59,10 @@ async function getProjects(): Promise<string[]> {
     const tSearchEnd = process.hrtime.bigint();
 
     const projects = files
-      .map((path) =>
-        path === "tsconfig.json" ? "." : path.replace("/tsconfig.json", "")
+      .map((p) =>
+        p === "tsconfig.json" ? "." : p.replace("/tsconfig.json", "")
       )
+      .map((p) => path.join(cliArguments.cwd, p))
       .filter((p) => {
         if (cliArguments.exclude.includes(p)) {
           log(chalk.italic(`   project path [${p}] excluded`));
