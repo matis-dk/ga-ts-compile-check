@@ -8,5 +8,5 @@ jobs:
       - uses: actions/setup-node@v2
       - run: yarn install
         working-directory: ./ts-compile-checker
-      - run: yarn start
-        working-directory: ./ts-compile-checker --cwd ".."
+      - run: yarn start --cwd ".."
+        working-directory: ./ts-compile-checker
