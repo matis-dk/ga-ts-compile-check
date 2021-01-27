@@ -9,4 +9,4 @@ jobs:
       - run: yarn install
         working-directory: ./ts-compile-checker
       - run: yarn start --cwd ".."
-        working-directory: ./ts-compile-checker
+        working-directory: ./
