@@ -1,4 +1,3 @@
-import { User } from "./../../types/User";
 import express from "express";
 import morgan from "morgan";
 import * as ping from "./controllers/ping";
