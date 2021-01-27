@@ -11,7 +11,7 @@ jobs:
           node-version: "14"
       - run: yarn init -y
       - run: yarn add ts-compile-checker
-      - run: node node_modules/ts-compile-checker/dist/index.js
+      - run: npx ts-compile-checker
 
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
