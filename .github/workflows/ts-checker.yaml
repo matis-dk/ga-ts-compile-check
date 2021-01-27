@@ -7,6 +7,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - run: yarn install
-        working-directory: ./ts-compile-checker
+        working-directory: ts-compile-checker
       - run: yarn start
-        working-directory: ./
+        working-directory: ts-compile-checker
