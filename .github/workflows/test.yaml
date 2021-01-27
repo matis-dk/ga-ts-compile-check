@@ -9,8 +9,6 @@ jobs:
       - uses: actions/setup-node@v2.1.4
         with:
           node-version: "14"
-      - run: yarn init -y
-      - run: yarn add ts-compile-checker
       - run: npx ts-compile-checker
 
       # - name: Setup tmate session
