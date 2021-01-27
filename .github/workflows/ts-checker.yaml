@@ -2,12 +2,9 @@ on: push
 name: TS checker
 jobs:
   checker:
-    name: TS checker job
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-
-      - name: TS checker start
+      - run: npx ts-compile-checker
         working-directory: ./
-        run: npx ts-compile-checker
